@@ -1,0 +1,14 @@
+modules:
+  jira:projectPage:
+    - key: metron-jira-reporter-hello-world-project-page
+      function: main
+      title: Metron jira reporter
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/8f25a335-b01e-4f58-bcaf-daa63d216e6f
+permissions:
+  scopes:
+    - read:jira-work
+
