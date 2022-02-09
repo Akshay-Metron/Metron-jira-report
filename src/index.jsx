@@ -28,7 +28,7 @@ const fetchworklogsForIssue = async (issueId) => {
     
   //}
 }
-console.log(all_WorkLogs[1]);
+//console.log(all_WorkLogs[1]);
   return fetch_worklog;
 };
 
@@ -245,13 +245,19 @@ const App = () => {
             
             <Heading size="Medium">
                
-              {
-              fetch_project.issues.map(issue => 
+              {fetch_project.issues.map(issue => 
+
             (            
               <Text>{issue.key}</Text>
+
               
             ))}
+
             </Heading>
+
+            
+             
+
             </Cell>
 
           
@@ -277,34 +283,44 @@ const App = () => {
         
 
 
-
+        
         <Row>
 
+        <Cell>
+        {all_WorkLogs.map(work=>(
+          <Fragment>
+            {work.map(worklog=>(
+              <Text>{worklog.started}</Text>
+            ))}
+          </Fragment>
+        ))}
+        </Cell>
+        
         
         <Cell>
-        {all_WorkLogs.map((ww) => (
-                ww.map(worklog => (
-                <Text>{worklog.started}</Text> 
-              ))
-              ))}
-
+        {all_WorkLogs.map(work=>(
+          <Fragment>
+            {work.map(worklog=>(
+              <Text>{worklog.comment.content[0].content[0].text}</Text>
+            ))}
+          </Fragment>
+        ))}
         </Cell>
 
 
-        <Cell>
-        {all_WorkLogs[1].map(worklog => (
-                <Text>{worklog.comment.content[0].content[0].text}</Text>
-          ))} 
-        </Cell>
 
         <Cell>
-            {all_WorkLogs[1].map(worklog => (
-
+        {all_WorkLogs.map(work=>(
+          <Fragment>
+            {work.map(worklog=>(
               <Text>{(worklog.timeSpentSeconds)/3600}</Text>
             ))}
-          </Cell>
+          </Fragment>
+        ))}
+        </Cell>
 
         </Row>
+        
       
 
               
