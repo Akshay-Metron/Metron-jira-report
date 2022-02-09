@@ -6,10 +6,16 @@ import api, { route } from "@forge/api";
 var issue_keys=[]    
 var fetch_worklog=[];
 var all_WorkLogs = []
+
 const fetchworklogsForIssue = async (issueId) => {
  
   for (let i = 0; i < issue_keys.length; i++) {
     const element = issue_keys[i];
+    //for (let j = 0; j < issue_keys.length; j++) {
+      //const element = issue_keys[i];
+      
+    
+    
     const response = await api.asApp().requestJira(route`/rest/api/3/issue/${element}/worklog`, {
       headers: {
         'Accept': 'application/json'
@@ -17,14 +23,14 @@ const fetchworklogsForIssue = async (issueId) => {
     });
     fetch_worklog = await response.json();
     all_WorkLogs.push(fetch_worklog.worklogs);
-    console.log(fetch_worklog.worklogs[0].comment.content[0].content[0].text);
-  }
-
+    
+    
+    
+  //}
+}
+console.log(all_WorkLogs[1]);
   return fetch_worklog;
 };
-
-
-
 
 
 /*
@@ -56,7 +62,7 @@ const projectStatuses = async (issueId) => {
   const fetch_project = await response4.json();
   //console.log(`Response4: ${response4.status} ${response4.statusText}`);
   //console.log(await response4.json());
-    console.log(fetch_project.issues[0].fields);
+  //console.log(fetch_project.issues[0].fields);
   return fetch_project
 };
 
@@ -276,22 +282,25 @@ const App = () => {
 
         
         <Cell>
-        {all_WorkLogs.map(worklogs => (
-                <Text>{worklogs[0].started}</Text>
-          ))} 
+        {all_WorkLogs.map((ww) => (
+                ww.map(worklog => (
+                <Text>{worklog.started}</Text> 
+              ))
+              ))}
+
         </Cell>
 
 
         <Cell>
-        {all_WorkLogs.map(worklogs => (
-                <Text>{worklogs[0].comment.content[0].content[0].text}</Text>
+        {all_WorkLogs[1].map(worklog => (
+                <Text>{worklog.comment.content[0].content[0].text}</Text>
           ))} 
         </Cell>
 
         <Cell>
-            {fetch_project.issues.map(issue => (
+            {all_WorkLogs[1].map(worklog => (
 
-              <Text>{(issue.fields.timespent)/3600}</Text>
+              <Text>{(worklog.timeSpentSeconds)/3600}</Text>
             ))}
           </Cell>
 
