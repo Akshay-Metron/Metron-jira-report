@@ -280,10 +280,7 @@ const App = () => {
             </Cell>
           
         </Head>  
-        
-
-
-        
+              
         <Row>
 
         <Cell>
